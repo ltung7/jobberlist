@@ -1,0 +1,16 @@
+LANDING Z OFERTAMI PRACY — PACZKA DLA PROGRAMISTY (EISG)
+
+Zawartość:
+  brief-landing-eisg.pdf      – krótki brief, od tego zacznij
+  makieta-praca-eisg.html     – klikalna makieta, otwórz w przeglądarce (najlepiej na telefonie / wąskim oknie)
+  widoki/                     – zrzuty wszystkich ekranów:
+     01-lista.png                 lista ofert
+     02-lista-filtr-niemcy.png    lista po filtrze lokalizacji
+     03-oferta-gora.png           strona oferty – góra
+     04-oferta-dol.png            strona oferty – dół + przycisk Aplikuj
+     05-formularz.png             formularz "Zostaw numer"
+     06-podziekowanie.png         ekran podziękowania
+     07-powiazania.png            gdzie wpina się integracja (źródło danych)
+     08-lista-dark.png            tryb ciemny
+
+Makieta i dane ofert są poglądowe. Oferty docelowo pochodzą z Google Sheeta.
