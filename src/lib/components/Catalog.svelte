@@ -88,9 +88,9 @@
 				</div>
 
 				<div class="tags">
-					<!-- {#if now < (new Date(o.availableFrom).valueOf())}
+					{#if now < (new Date(o.availableFrom).valueOf())}
 						<span class="pill-go">Od zaraz</span>
-					{/if} -->
+					{/if}
 					<span class="tag">{CONTRACT_OPTION_LIST_EN[o.contractType]}</span>
 					<span class="tag">{SHIFT_OPTION_LIST_EN[o.shift]}</span>
 					{#if o.accommodation?.length}
