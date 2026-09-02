@@ -5,12 +5,13 @@
 	import Catalog from '$lib/components/Catalog.svelte';
 	import Detail from '$lib/components/Detail.svelte';
 	import Apply from '$lib/components/Apply.svelte';
+	import LocaleDropdown from '$lib/misc/LocaleDropdown.svelte';
+	import { currentLocale } from '$lib/nav/currentLocale';
 
 	let offers = $state<SavedOffer[]>([]);
 	let selectedOfferId = $state<string | null>(null);
 	let view = $state<'catalog' | 'detail'>('catalog');
 	let isSheetOpen = $state(false);
-	let langIndex = $state(0);
 
 	const loadOffers = async () => {
 		const response = await internal.getApi();
@@ -19,23 +20,11 @@
 		}
 	};
 
-	const languages = [
-		{ flag: '🇵🇱', code: 'PL' },
-		{ flag: '🇺🇦', code: 'UA' },
-		{ flag: '🇬🇧', code: 'EN' },
-		{ flag: '🇮🇳', code: 'HI' }
-	];
-
-	let currentLang = $derived(languages[langIndex]);
 	let selectedOffer = $derived(offers.find((o) => o.id === selectedOfferId) ?? null);
 
 	function selectOffer(id: string) {
 		selectedOfferId = id;
 		view = 'detail';
-	}
-
-	function cycleLanguage() {
-		langIndex = (langIndex + 1) % languages.length;
 	}
 
 	onMount(loadOffers);
@@ -58,31 +47,30 @@
 			<span class="mark">EI</span>
 			<b>Praca<span>EISG</span></b>
 		</div>
-		<button class="lang" onclick={cycleLanguage}>
-			<span class="flag">{currentLang.flag}</span>
-			{currentLang.code}
-		</button>
+		<LocaleDropdown />
 	</div>
 
-	<div class="screens">
-		<section class="screen" id="catalog">
-			<Catalog {offers} onSelectOffer={selectOffer} />
-		</section>
+	{#key $currentLocale}
+		<div class="screens">
+			<section class="screen" id="catalog">
+				<Catalog {offers} onSelectOffer={selectOffer} />
+			</section>
 
-		<section class="screen" id="detail">
-			{#if selectedOffer}
-				<Detail offer={selectedOffer} onBack={() => (view = 'catalog')} onApply={() => (isSheetOpen = true)} />
-			{/if}
-		</section>
-	</div>
+			<section class="screen" id="detail">
+				{#if selectedOffer}
+					<Detail offer={selectedOffer} onBack={() => (view = 'catalog')} onApply={() => (isSheetOpen = true)} />
+				{/if}
+			</section>
+		</div>
 
-	<Apply
-		offer={selectedOffer}
-		isOpen={isSheetOpen}
-		onClose={() => (isSheetOpen = false)}
-		onSuccessClose={() => {
-			isSheetOpen = false;
-			view = 'catalog';
-		}}
-	/>
+		<Apply
+			offer={selectedOffer}
+			isOpen={isSheetOpen}
+			onClose={() => (isSheetOpen = false)}
+			onSuccessClose={() => {
+				isSheetOpen = false;
+				view = 'catalog';
+			}}
+		/>
+	{/key}
 </div>

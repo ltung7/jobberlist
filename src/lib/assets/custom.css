@@ -144,6 +144,15 @@ button {
 .lang .flag {
 	font-size: 0.95rem;
 	line-height: 1;
+	border: 1px solid var(--line);
+	border-radius: 0.375rem;
+	aspect-ratio: 4/3;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.25rem;
 }
 
 .screens {
@@ -642,6 +651,7 @@ button {
 	margin-bottom: 7px;
 }
 .field input[type='text'],
+.field select,
 .field input[type='tel'] {
 	width: 100%;
 	font-family: inherit;
@@ -734,4 +744,88 @@ button {
 	* {
 		transition: none !important;
 	}
+}
+
+/** --- DROPDOWN --- */
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-toggle {
+	background-color: var(--surface);
+	color: var(--ink);
+	border: 1px solid var(--line);
+	padding: 0.375rem 0.75rem;
+	border-radius: 0.375rem;
+	font-size: 1rem;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.dropdown-toggle:hover {
+	background-color: var(--surface-2);
+}
+
+.label-content {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.caret {
+	font-size: 0.65rem;
+	margin-left: 0.25rem;
+}
+
+/* Bottom placement, right-aligned to trigger */
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	z-index: 1000;
+	min-width: 10rem;
+	padding: 0.5rem 0;
+	margin-top: 0.125rem;
+	background-color: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: 0.375rem;
+	box-shadow: 0 0.5rem 1rem rgba(var(--shadow) / 0.15);
+	display: flex;
+	flex-direction: column;
+}
+
+.dropdown-item {
+	width: 100%;
+	padding: 0.375rem 1rem;
+	font-size: 1rem;
+	color: var(--ink);
+	text-align: left;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+	color: var(--ink);
+	background-color: var(--surface-2);
+	outline: none;
+}
+
+.dropdown-item.active {
+	background-color: var(--petrol);
+	color: var(--petrol-ink);
+}
+
+.flag {
+	border: 1px solid var(--line);
+	border-radius: 0.375rem;
+	aspect-ratio: 4/3;
 }
