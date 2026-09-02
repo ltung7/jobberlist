@@ -5,9 +5,8 @@
 	import Catalog from '$lib/components/Catalog.svelte';
 	import Detail from '$lib/components/Detail.svelte';
 	import Apply from '$lib/components/Apply.svelte';
-	import { convertToOffer } from './convertOffer';
 
-	let offers = $state<Offer[]>([]);
+	let offers = $state<SavedOffer[]>([]);
 	let selectedOfferId = $state<string | null>(null);
 	let view = $state<'catalog' | 'detail'>('catalog');
 	let isSheetOpen = $state(false);
@@ -16,7 +15,7 @@
 	const loadOffers = async () => {
 		const response = await internal.getApi();
 		if (response.offers) {
-			offers = response.offers.map(convertToOffer);
+			offers = response.offers;
 		}
 	};
 

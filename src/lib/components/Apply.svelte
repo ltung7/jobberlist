@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { internal } from "$lib/nav/internal";
+
 	interface Props {
-		offer: Offer | null;
+		offer: SavedOffer | null;
 		isOpen: boolean;
 		onClose: () => void;
 		onSuccessClose: () => void;
@@ -24,13 +26,27 @@
 		}
 	});
 
-	function handleSubmit() {
+	async function handleSubmit() {
 		if (isValid) {
+			const urlParams = new URLSearchParams(window.location.search);
+			const data: BitrixLeadData = {
+				name: fName,
+				phone: fPhone,
+				offerId: offer!.id,
+				utm_source: urlParams.get('utm_source') ?? '',
+				utm_medium: urlParams.get('utm_medium') ?? '',
+				utm_campaign: urlParams.get('utm_campaign') ?? '',
+				utm_term: urlParams.get('utm_term') ?? '',
+				utm_content: urlParams.get('utm_content') ?? '',
+			}
+			await internal.post('/bitrix', data);
 			isSubmitted = true;
 		}
 	}
 </script>
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="scrim" onclick={onClose}></div>
 
 <div class="sheet" role="dialog" aria-modal="true" aria-label="Zostaw numer">
@@ -39,7 +55,7 @@
 	{#if !isSubmitted}
 		<div class="form-wrap">
 			<h2>Zostaw numer</h2>
-			<p class="for">Oddzwaniamy zwykle w ciągu 24 h. Aplikujesz na: <b>{offer?.stanowisko} · {offer?.loc}</b></p>
+			<p class="for">Oddzwaniamy zwykle w ciągu 24 h. Aplikujesz na: <b>{offer?.jobType} · {offer?.location}, {offer?.city}</b></p>
 
 			<div class="field">
 				<label for="fName">Imię</label>
