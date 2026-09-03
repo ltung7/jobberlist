@@ -11,7 +11,7 @@
 	let offers = $state<SavedOffer[]>([]);
 	let selectedOfferId = $state<string | null>(null);
 	let view = $state<'catalog' | 'detail'>('catalog');
-	let isSheetOpen = $state(false);
+	let isApplyOpen = $state(false);
 
 	const loadOffers = async () => {
 		const response = await internal.getApi();
@@ -30,17 +30,13 @@
 	onMount(loadOffers);
 </script>
 
-<!-- CDN scripts injected at mount time via Svelte action or head tag in parent -->
 <svelte:head>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" /> -->
 	<title>Praca EISG</title>
 </svelte:head>
 
 <Toasts />
 
-<div class="app" id="app" data-view={view} data-sheet={isSheetOpen ? 'open' : 'closed'}>
+<div class="app" id="app" data-view={view} data-sheet={isApplyOpen ? 'open' : 'closed'}>
 	<!-- TOP BAR -->
 	<div class="topbar">
 		<div class="brand">
@@ -58,17 +54,17 @@
 
 			<section class="screen" id="detail">
 				{#if selectedOffer}
-					<Detail offer={selectedOffer} onBack={() => (view = 'catalog')} onApply={() => (isSheetOpen = true)} />
+					<Detail offer={selectedOffer} onBack={() => (view = 'catalog')} onApply={() => (isApplyOpen = true)} />
 				{/if}
 			</section>
 		</div>
 
 		<Apply
 			offer={selectedOffer}
-			isOpen={isSheetOpen}
-			onClose={() => (isSheetOpen = false)}
+			isOpen={isApplyOpen}
+			onClose={() => (isApplyOpen = false)}
 			onSuccessClose={() => {
-				isSheetOpen = false;
+				isApplyOpen = false;
 				view = 'catalog';
 			}}
 		/>

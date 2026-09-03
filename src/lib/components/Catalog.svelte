@@ -131,7 +131,7 @@
 				</div>
 
 				<div class="card-foot">
-					<span class="tag" style="background:transparent;padding-left:0">🗣 {o.langExtra}</span>
+					<!-- <span class="tag" style="background:transparent;padding-left:0">🗣 {o.langExtra}</span> -->
 					<span class="more">{m.see_offer()}</span>
 				</div>
 			</button>

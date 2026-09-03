@@ -67,5 +67,7 @@
   "apply_submit": "आवेदन जमा करें",
   "apply_success_title": "धन्यवाद!",
   "apply_success_text": "हम आपको 24 घंटे के भीतर कॉल करेंगे। EISG से कॉल की उम्मीद करें।",
-  "apply_success_back": "प्रस्तावों पर वापस जाएँ"
+  "apply_success_back": "प्रस्तावों पर वापस जाएँ",
+  "detail_share": "लिंक साझा करें",
+  "detail_copy": "लिंक कॉपी करें"
 }

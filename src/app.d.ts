@@ -67,26 +67,27 @@ declare global {
 		timestamp?: number;
 	}
 
-	interface JobFormData {
+	interface TranslatableJobInfo {
 		jobType: string;
+		workplaceDesc: string;
+		requirements: string;
+		duties: string;
+		extra: string;
+	}
+
+	interface JobFormData extends TranslatableJobInfo {
 		location: string;
 		city: string;
 		availableFrom: string;
 		accommodation: AccommodationType;
-		// rate: string;
 		rateFrom: number;
 		rateTo: number;
 		rateNet: boolean;
 		contractType: ContractType;
 		shift: ShiftType;
 		benefits: BenefitType[], 
-		benefits: string;
-		workplaceDesc: string;
-		requirements: string;
-		duties: string;
-		extra: string;
 		offerRef: string;
-		langExtra: Lang;
+		lang: Partial<Record<Lang, TranslatableJobInfo>>;
 	}
 
 	interface Candidate {

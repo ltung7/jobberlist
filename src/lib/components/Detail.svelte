@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages.js';
-	import { currentLocale } from "$lib/nav/currentLocale";
+	import { currentLocale } from '$lib/nav/currentLocale';
+	import ShareButton from './ShareButton.svelte';
+	import { PUBLIC_URL } from '$env/static/public';
 
 	interface Props {
 		offer: SavedOffer;
@@ -56,16 +58,19 @@
 	} as const;
 </script>
 
-<div class="dbar">
-	<button class="back" onclick={onBack} aria-label={m.detail_back()}>
-		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-	</button>
-	<b>{m.detail_back()}</b>
+<div class="dbar" style="display: flex; justify-content: space-between">
+	<div style="display: flex; align-items: center;">
+		<button class="back" onclick={onBack} aria-label={m.detail_back()}>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+		</button>
+		<b style="margin-left: 5px;">{m.detail_back()}</b>
+	</div>
+	<ShareButton url={PUBLIC_URL + '/offers/' + offer.id} />
 </div>
 
 <div class="scroll">
 	<div class="dhead">
-		<h1>{offer.jobType}</h1>
+		<h1>{offer.lang[$currentLocale]?.jobType || offer.jobType}</h1>
 		<div class="loc">
 			<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
 			{offer.location} · {offer.city}
@@ -91,37 +96,47 @@
 		</div>
 	</div>
 
-	<div class="sec">
-		<h4>{m.detail_job_description()}</h4>
-		<p>{offer.workplaceDesc}</p>
-	</div>
+	{#if offer.workplaceDesc.length}
+		<div class="sec">
+			<h4>{m.detail_job_description()}</h4>
+			<p>{offer.lang[$currentLocale]?.workplaceDesc || offer.workplaceDesc}</p>
+		</div>
+	{/if}
 
-	<div class="sec">
-		<h4>{m.detail_duties()}</h4>
-		<ul class="ul">
-			{#each offer.duties.split('\r\n') as item}
-				<li>{item}</li>
-			{/each}
-		</ul>
-	</div>
+	{#if offer.duties.length}
+		{@const duties = offer.lang[$currentLocale]?.duties || offer.duties}
+		<div class="sec">
+			<h4>{m.detail_duties()}</h4>
+			<ul class="ul">
+				{#each duties.split('\r\n') as item}
+					<li>{item}</li>
+				{/each}
+			</ul>
+		</div>
+	{/if}
 
-	<div class="sec">
-		<h4>{m.detail_requirements()}</h4>
-		<ul class="ul">
-			{#each offer.requirements.split('\r\n') as item}
-				<li>{item}</li>
-			{/each}
-		</ul>
-	</div>
+	{#if offer.requirements.length}
+		{@const requirements = offer.lang[$currentLocale]?.requirements || offer.requirements}
+		<div class="sec">
+			<h4>{m.detail_requirements()}</h4>
+			<ul class="ul">
+				{#each requirements.split('\r\n') as item}
+					<li>{item}</li>
+				{/each}
+			</ul>
+		</div>
+	{/if}
 
-	<div class="sec">
-		<h4>{m.detail_what_we_offer()}</h4>
-		<ul class="ul check">
-			{#each offer.benefits as item}
-				<li>{BENEFITS_LABELS[item]()}</li>
-			{/each}
-		</ul>
-	</div>
+	{#if offer.benefits.length}
+		<div class="sec">
+			<h4>{m.detail_what_we_offer()}</h4>
+			<ul class="ul check">
+				{#each offer.benefits as item}
+					<li>{BENEFITS_LABELS[item]()}</li>
+				{/each}
+			</ul>
+		</div>
+	{/if}
 
 	<div class="detail-pad"></div>
 </div>
