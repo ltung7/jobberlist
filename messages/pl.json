@@ -75,5 +75,6 @@
   "error_looking_for": "Szukasz wolnych stanowisk?",
   "error_return": "Prosimy wrócić do naszej głównej strony Kariera, aby przeglądać aktywne ogłoszenia lub złożyć ogólne podanie.",
   "error_already_applied": "Aplikowałeś już?",
-  "error_applied_text": "Jeśli wcześniej złożyłeś aplikację na to stanowisko, Twoje dane pozostają bezpiecznie przechowywane w naszym systemie i są obecnie weryfikowane przez nasz zespół rekrutacyjny."
+  "error_applied_text": "Jeśli wcześniej złożyłeś aplikację na to stanowisko, Twoje dane pozostają bezpiecznie przechowywane w naszym systemie i są obecnie weryfikowane przez nasz zespół rekrutacyjny.",
+  "filter_search": "Szukaj"
 }

@@ -75,5 +75,6 @@
   "error_looking_for": "Naghahanap ng bakanteng posisyon?",
   "error_return": "Mangyaring bumalik sa aming pangunahing pahina ng Karera upang tingnan ang mga aktibong listahan o magsumite ng pangkalahatang aplikasyon.",
   "error_already_applied": "Nakapag-apply na ba?",
-  "error_applied_text": "Kung dati kang nakapagsumite ng aplikasyon para sa posisyong ito, nananatiling ligtas na nakaimbak ang iyong mga detalye sa aming system at kasalukuyang sinusuri ng aming recruiting team."
+  "error_applied_text": "Kung dati kang nakapagsumite ng aplikasyon para sa posisyong ito, nananatiling ligtas na nakaimbak ang iyong mga detalye sa aming system at kasalukuyang sinusuri ng aming recruiting team.",
+  "filter_search": "Maghanap"
 }

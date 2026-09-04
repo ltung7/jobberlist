@@ -14,6 +14,9 @@
 	// Currently active location filter ('all' or a specific location string)
 	let activeLoc = $state('all');
 
+	// Search query for filtering offers
+	let searchQuery = $state('');
+
 	// Dynamically create filter chips whenever `offers` changes
 	let filterChips = $derived.by(() => {
 		// Collect all unique location values from the current offers list
@@ -37,8 +40,44 @@
 		}
 	});
 
-	// Filter offers based on active location selection
-	let filteredOffers = $derived(offers.filter((o) => (activeLoc === 'all' ? true : o.city === activeLoc)));
+	/**
+	 * Filters offers by city/location
+	 */
+	function filterByCity(offer: SavedOffer): boolean {
+		return activeLoc === 'all' ? true : offer.city === activeLoc;
+	}
+
+	let fuzzyFn: ((term: string, candidate: string) => number) | null = null;
+	const THRESHOLD = 0.7;
+
+	async function loadFuzzy() {
+		if (!fuzzyFn) {
+			// @ts-expect-error no type
+			({ fuzzy: fuzzyFn } = await import('https://cdn.jsdelivr.net/npm/fast-fuzzy@1.12.0/+esm'));
+		}
+		return fuzzyFn;
+	}
+
+	/**
+	 * Filters offers by text search using fuzzy matching or substring fallback
+	 */
+	function filterByText(offer: SavedOffer): boolean {
+		if (searchQuery === '') return true;
+
+		const localeOffer = offer.lang[$currentLocale]?.jobType || offer.jobType;
+		const localeDesc = offer.lang[$currentLocale]?.workplaceDesc || offer.workplaceDesc;
+		const searchElements = [ localeOffer, localeDesc, offer.city, offer.location ];
+		const localizedOffer = searchElements.join(' ');
+
+		if (fuzzyFn) {
+			return fuzzyFn(searchQuery, localizedOffer) >= THRESHOLD;
+		}
+
+		return localizedOffer.toLowerCase().includes(searchQuery);
+	}
+
+	// Filter offers based on active location selection and search query
+	let filteredOffers = $derived(offers.filter((o) => filterByCity(o) && filterByText(o)));
 
 	// Dynamic offer count text using paraglide pluralization
 	let countText = $derived(getOfertaCountText(filteredOffers.length));
@@ -76,6 +115,13 @@
 		</div>
 
 		<div class="filters">
+			<label class="search-chip">
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="11" cy="11" r="8" />
+					<path d="m21 21-4.35-4.35" />
+				</svg>
+				<input type="text" placeholder={m.filter_search()} bind:value={searchQuery} onfocus={loadFuzzy} />
+			</label>
 			{#each filterChips as chip (chip.loc)}
 				<button class="chip" aria-pressed={activeLoc === chip.loc} onclick={() => (activeLoc = chip.loc)}>
 					{chip.label}

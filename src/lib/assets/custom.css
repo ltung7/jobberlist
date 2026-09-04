@@ -228,6 +228,42 @@ button {
 	color: var(--petrol-ink);
 	border-color: var(--petrol);
 }
+
+/* Search chip - input with search icon inside a chip-like container */
+.search-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	position: relative;
+}
+.search-chip svg {
+	color: var(--ink-3);
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.search-chip input {
+	flex: 1;
+	font-size: 0.82rem;
+	font-weight: 600;
+	color: var(--ink-2);
+	background: var(--surface);
+	border: 1px solid var(--line);
+	padding: 8px 12px;
+	border-radius: 999px;
+	width: 200px;
+	max-width: 300px;
+	transition: 0.15s;
+}
+.search-chip input:focus {
+	outline: none;
+	border-color: var(--petrol);
+	background: var(--surface);
+}
+.search-chip input::placeholder {
+	color: var(--ink-3);
+	font-weight: 400;
+}
 .count {
 	padding: 12px 18px 4px;
 	font-size: 0.78rem;
