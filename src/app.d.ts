@@ -88,6 +88,7 @@ declare global {
 		benefits: BenefitType[], 
 		offerRef: string;
 		lang: Partial<Record<Lang, TranslatableJobInfo>>;
+		public: boolean;
 	}
 
 	interface Candidate {

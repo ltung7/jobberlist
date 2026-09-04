@@ -3,7 +3,7 @@ import { json } from '@sveltejs/kit';
 
 
 export const GET = async ({ setHeaders }) => {
-    const offers = await findJobberOffersList();
+    const offers = await findJobberOffersList({ public: true });
     setHeaders({
       "cache-control": "max-age=3600"
     });

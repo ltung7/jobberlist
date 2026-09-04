@@ -69,5 +69,11 @@
   "apply_success_text": "Zadzwonimy do Ciebie w ciągu 24 godzin. Odbierz telefon z numeru EISG.",
   "apply_success_back": "Wróć do ofert",
   "detail_share": "Udostępnij link",
-  "detail_copy": "Kopiuj link"
+  "detail_copy": "Kopiuj link",
+  "error_unavailable": "Oferta pracy niedostępna",
+  "error_message": "Ta oferta pracy jest już niedostępna. Stanowisko mogło osiągnąć termin składania aplikacji, zostać obsadzone i zarchiwizowane lub usunięte przez zespół rekrutacyjny. W niektórych przypadkach link może prowadzić do wersji roboczej oferty, która nie została jeszcze publicznie opublikowana.",
+  "error_looking_for": "Szukasz wolnych stanowisk?",
+  "error_return": "Prosimy wrócić do naszej głównej strony Kariera, aby przeglądać aktywne ogłoszenia lub złożyć ogólne podanie.",
+  "error_already_applied": "Aplikowałeś już?",
+  "error_applied_text": "Jeśli wcześniej złożyłeś aplikację na to stanowisko, Twoje dane pozostają bezpiecznie przechowywane w naszym systemie i są obecnie weryfikowane przez nasz zespół rekrutacyjny."
 }

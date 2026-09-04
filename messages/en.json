@@ -67,5 +67,11 @@
 	"apply_submit": "Submit application",
 	"apply_success_title": "Thank you!",
 	"apply_success_text": "We'll call you within 24 hours. Expect a call from EISG.",
-	"apply_success_back": "Back to offers"
+	"apply_success_back": "Back to offers",
+	"error_unavailable": "Job Offer Unavailable",
+	"error_message": "This job offer is no longer accessible. The position may have reached its application deadline, been filled and archived, or taken down by the hiring team. In some cases, the link may belong to a draft offer that has not yet been publicly published.",
+	"error_looking_for": "Looking for open roles?",
+	"error_return": "Please return to our main Careers page to browse active listings or submit a general application.",
+	"error_already_applied": "Already applied?",
+	"error_applied_text": "If you previously submitted an application for this role, your details remain securely stored in our system and are currently being reviewed by our recruiting team."
 }

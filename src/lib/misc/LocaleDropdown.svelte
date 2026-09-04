@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { LANGUAGES } from "$lib/components/const";
-	import { currentLocale } from "$lib/nav/currentLocale";
+	import { currentLocale } from "$lib/nav/stores";
 	import type { Locale } from "$lib/paraglide/runtime";
 	import { getLocale, setLocale } from "$lib/paraglide/runtime";
 	import CustomDropdown from "./CustomDropdown.svelte";

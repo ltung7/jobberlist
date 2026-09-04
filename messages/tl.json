@@ -69,5 +69,11 @@
   "apply_success_text": "Tatawagan ka namin sa loob ng 24 oras. Asahan ang tawag mula sa EISG.",
   "apply_success_back": "Bumalik sa mga alok",
   "detail_share": "Ibahagi ang link",
-  "detail_copy": "Kopyahin ang link"
+  "detail_copy": "Kopyahin ang link",
+  "error_unavailable": "Hindi Available ang Alok ng Trabaho",
+  "error_message": "Hindi na ma-access ang alok ng trabahong ito. Maaaring lumampas na sa deadline ng aplikasyon ang posisyon, napunan na at na-archive, o inalis ng hiring team. Sa ilang kaso, maaaring ang link ay para sa isang draft na alok na hindi pa pampublikong nai-publish.",
+  "error_looking_for": "Naghahanap ng bakanteng posisyon?",
+  "error_return": "Mangyaring bumalik sa aming pangunahing pahina ng Karera upang tingnan ang mga aktibong listahan o magsumite ng pangkalahatang aplikasyon.",
+  "error_already_applied": "Nakapag-apply na ba?",
+  "error_applied_text": "Kung dati kang nakapagsumite ng aplikasyon para sa posisyong ito, nananatiling ligtas na nakaimbak ang iyong mga detalye sa aming system at kasalukuyang sinusuri ng aming recruiting team."
 }
