@@ -41,7 +41,7 @@ declare global {
 		type FirebaseOrderQuery<K extends string = string> = [K, 'asc' | 'desc'] | false;
 	}
 
-	type Lang = 'en' | 'pl' | 'hi' | 'ne' | 'hr' | 'uk' | 'be' | 'tl' | 'es' | 'uz' | 'bn' | 'ka' | 'ro';
+	type Lang = 'en' | 'pl' | 'hi' | 'ne' | 'hr' | 'uk' | 'be' | 'tl' | 'es' | 'uz' | 'bn' | 'ka' | 'ro' | 'fr';
 	type View = 'generator' | 'saved' | 'archive' | 'settings' | 'feedback';
 	type PreviewTab = 'offer' | 'msg';
 	type ToastType = 'success' | 'info';
