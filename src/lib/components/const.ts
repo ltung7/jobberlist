@@ -8,13 +8,7 @@ export const LANGUAGES: Record<Locale, string> = {
     uk: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/ua.svg" alt="Ukrainian" title="Ukrainian" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Українська',
     tl: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/ph.svg" alt="Filipino" title="Filipino" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Filipino',
     fr: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/fr.svg" alt="Française" title="Française" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Française',
-    // hr: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/hr.svg" alt="Croatian" title="Croatian" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Hrvatski',
-    // be: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/by.svg" alt="Belarusian" title="Belarusian" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Беларуская',
-    // es: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/co.svg" alt="Spanish" title="Spanish" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Español (Colombia)',
-    // uz: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/uz.svg" alt="Uzbek" title="Uzbek" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Oʻzbekcha',
-    // bn: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/bd.svg" alt="Bengali" title="Bengali" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> বাংলা',
-    // ka: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/ge.svg" alt="Georgian" title="Georgian" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> ქართული',
-    // ro: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/md.svg" alt="Romanian" title="Romanian" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Română',
+    hr: '<img src="https://storage.googleapis.com/feed-cdn-files/flags/hr.svg" alt="Hrvatski" title="Hrvatski" style="height: 21px; width: 28px;" class="flag border rounded" width="28" height="21"> Hrvatski',
 }
 
 // Country calling codes, unique, sorted ascending.
