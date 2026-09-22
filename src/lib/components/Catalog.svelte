@@ -2,6 +2,7 @@
 	import { getOfertaCountText } from '$lib/nav/plurals';
 	import { m } from '$lib/paraglide/messages.js';
 	import { currentLocale } from '$lib/nav/stores';
+	import Rate from './Rate.svelte';
 
 	interface Props {
 		offers: SavedOffer[];
@@ -66,7 +67,7 @@
 
 		const localeOffer = offer.lang[$currentLocale]?.jobType || offer.jobType;
 		const localeDesc = offer.lang[$currentLocale]?.workplaceDesc || offer.workplaceDesc;
-		const searchElements = [ localeOffer, localeDesc, offer.city, offer.location ];
+		const searchElements = [localeOffer, localeDesc, offer.city, offer.location];
 		const localizedOffer = searchElements.join(' ');
 
 		if (fuzzyFn) {
@@ -147,18 +148,7 @@
 							</div>
 						</div>
 						<div class="rate">
-							{#if o.rateFrom === o.rateTo}
-								<div style="text-align: center">
-									<b style="color:#16a34a;">{o.rateTo}</b>
-								</div>
-							{:else}
-								<div style="text-align: center">
-									<b style="color:#16a34a;">{o.rateFrom}</b>
-									<span style="font-size: 10px; color: gray;">to</span>
-									<b style="color:#16a34a;">{o.rateTo}</b>
-								</div>
-							{/if}
-							<div style="font-size: 10px;">{m.rate_label({ rate: 'PLN', type: o.rateNet ? m.rate_net() : m.rate_gross() })}</div>
+							<Rate offer={o} />
 						</div>
 					</div>
 

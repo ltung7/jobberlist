@@ -12,6 +12,8 @@
 	"rate_label": "{rate} per hour ({type})",
 	"rate_net": "net",
 	"rate_gross": "gross",
+	"rate_akord": "Akord",
+	"rate_result": "pay per result",
 	"from_now": "From now",
 	"see_offer": "See offer →",
 	"contract_uop": "Contract of employment",

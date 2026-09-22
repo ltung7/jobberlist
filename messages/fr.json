@@ -73,5 +73,7 @@
   "error_looking_for": "À la recherche de postes ouverts ?",
   "error_return": "Veuillez retourner à notre page Carrières principale pour parcourir les annonces actives ou soumettre une candidature spontanée.",
   "error_already_applied": "Déjà postulé(e) ?",
-  "error_applied_text": "Si vous avez déjà soumis une candidature pour ce poste, vos informations restent stockées en toute sécurité dans notre système et sont actuellement en cours d'examen par notre équipe de recrutement."
+  "error_applied_text": "Si vous avez déjà soumis une candidature pour ce poste, vos informations restent stockées en toute sécurité dans notre système et sont actuellement en cours d'examen par notre équipe de recrutement.",
+  "rate_akord": "Akord",
+  "rate_result": "paiement au résultat"
 }

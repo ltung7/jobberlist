@@ -14,12 +14,15 @@
 
 	const rate = $derived.by(() => {
 		$currentLocale;
-		const typeLabel = offer.rateNet ? m.rate_net() : m.rate_gross();
-		const baseRate = m.rate_label({ rate: `${offer.rateTo}`, type: typeLabel });
-		if (offer.rateFrom !== offer.rateTo) {
-			return `${offer.rateFrom} – ${baseRate}`;
-		}
-		return baseRate;
+		if (offer.rateTo > 0) {
+			const typeLabel = offer.rateNet ? m.rate_net() : m.rate_gross();
+			const baseRate = m.rate_label({ rate: `${offer.rateTo}`, type: typeLabel });
+			if (offer.rateFrom !== offer.rateTo) {
+				return `${offer.rateFrom} – ${baseRate}`;
+			}
+			return baseRate;
+		} 
+		return `${m.rate_akord()} (${m.rate_result()})`
 	});
 
 	const CONTRACT_LABELS = {
