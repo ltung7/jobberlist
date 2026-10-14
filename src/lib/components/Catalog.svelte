@@ -2,6 +2,7 @@
 	import { getOfertaCountText } from '$lib/nav/plurals';
 	import { m } from '$lib/paraglide/messages.js';
 	import { currentLocale } from '$lib/nav/stores';
+	import { trackGtmEvent } from '$lib/gtm';
 	import Rate from './Rate.svelte';
 
 	interface Props {
@@ -17,6 +18,17 @@
 
 	// Search query for filtering offers
 	let searchQuery = $state('');
+	let searchTimeout: ReturnType<typeof setTimeout>;
+
+	$effect(() => {
+		const query = searchQuery.trim();
+		clearTimeout(searchTimeout);
+		if (query.length > 0) {
+			searchTimeout = setTimeout(() => {
+				trackGtmEvent('search', { search_term: query });
+			}, 1500); // Wait 1.5s after user stops typing
+		}
+	});
 
 	// Dynamically create filter chips whenever `offers` changes
 	let filterChips = $derived.by(() => {
@@ -40,6 +52,13 @@
 			activeLoc = 'all';
 		}
 	});
+
+	function handleSetFilter(loc: string) {
+		activeLoc = loc;
+		trackGtmEvent('search', {
+			search_term: loc === 'all' ? 'all_cities' : loc
+		});
+	}
 
 	/**
 	 * Filters offers by city/location
@@ -124,7 +143,7 @@
 				<input type="text" placeholder={m.filter_search()} bind:value={searchQuery} onfocus={loadFuzzy} />
 			</label>
 			{#each filterChips as chip (chip.loc)}
-				<button class="chip" aria-pressed={activeLoc === chip.loc} onclick={() => (activeLoc = chip.loc)}>
+				<button class="chip" aria-pressed={activeLoc === chip.loc} onclick={() => handleSetFilter(chip.loc)}>
 					{chip.label}
 				</button>
 			{/each}

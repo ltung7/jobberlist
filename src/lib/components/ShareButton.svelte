@@ -1,7 +1,12 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
-	let { url = '', title = "Praca EISG" } = $props();
+	interface Props {
+		url?: string;
+		title?: string;
+		onShare?: (method: string) => void;
+	}
+	let { url = '', title = "Praca EISG", onShare }: Props = $props();
 
 	let canShare = $state(false);
 	let copied = $state(false);
@@ -34,7 +39,9 @@
 		}
 
 		// 3. Execute synchronously on gesture stack
-		navigator.share(shareData).catch((err) => {
+		navigator.share(shareData).then(() => {
+			if (onShare) onShare('native');
+		}).catch((err) => {
 			if (err.name !== 'AbortError') {
 				console.error('Share failed:', err);
 			}
@@ -45,6 +52,7 @@
 		try {
 			await navigator.clipboard.writeText(url || location.href);
 			copied = true;
+			if (onShare) onShare('copy_link');
 			setTimeout(() => (copied = false), 1500);
 		} catch (err) {
 			console.error(err);

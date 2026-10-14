@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/assets/custom.css'
 	import LocaleDropdown from '$lib/misc/LocaleDropdown.svelte';
-	import { currentLocale, isApplyOpen, view } from '$lib/nav/stores';
+	import { isApplyOpen, view } from '$lib/nav/stores';
 	import Toasts from '$lib/toast/Toasts.svelte';
 
 	let { children } = $props();

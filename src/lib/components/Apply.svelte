@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { internal } from '$lib/nav/internal';
 	import { currentLocale, isApplyOpen } from '$lib/nav/stores';
+	import { trackGtmEvent } from '$lib/gtm';
 	import { m } from '$lib/paraglide/messages.js';
 	import { countryCodes } from './const';
 
@@ -39,6 +40,11 @@
 
 	async function handleSubmit() {
 		if (isValid) {
+			trackGtmEvent('generate_lead', {
+				offerId: offer?.id,
+				jobType: offer?.jobType,
+				location: offer?.location
+			});
 			const urlParams = new URLSearchParams(window.location.search);
 			const data: BitrixLeadData = {
 				name: fName,

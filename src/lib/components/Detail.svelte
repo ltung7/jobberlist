@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { m } from '$lib/paraglide/messages.js';
 	import { currentLocale, isApplyOpen } from '$lib/nav/stores';
+	import { trackGtmEvent } from '$lib/gtm';
 	import ShareButton from './ShareButton.svelte';
 	import DetailList from './DetailList.svelte';
 	import { PUBLIC_URL } from '$env/static/public';
@@ -21,8 +22,8 @@
 				return `${offer.rateFrom} – ${baseRate}`;
 			}
 			return baseRate;
-		} 
-		return `${m.rate_akord()} (${m.rate_result()})`
+		}
+		return `${m.rate_akord()} (${m.rate_result()})`;
 	});
 
 	const CONTRACT_LABELS = {
@@ -59,6 +60,17 @@
 		salary: m.benefits_salary,
 		environment: m.benefits_environment
 	} as const;
+
+	$effect(() => {
+		if (offer) {
+			trackGtmEvent('view_item', {
+				item_id: offer.id,
+				item_name: offer.jobType,
+				item_category: offer.location,
+				city: offer.city
+			});
+		}
+	});
 </script>
 
 {#key $currentLocale}
@@ -69,7 +81,13 @@
 			</button>
 			<b style="margin-left: 5px;">{m.detail_back()}</b>
 		</div>
-		<ShareButton url={PUBLIC_URL + '/offers/' + offer.id} />
+		<ShareButton url={PUBLIC_URL + '/offers/' + offer.id} onShare={(method: string) => {
+			trackGtmEvent('share', {
+				method: method,
+				content_type: 'offer',
+				item_id: offer.id
+			});
+		}} />
 	</div>
 
 	<div class="scroll">
@@ -121,6 +139,17 @@
 	</div>
 
 	<div class="cta-bar">
-		<button class="btn-apply" onclick={() => ($isApplyOpen = true)}>{m.detail_apply()}</button>
+		<button
+			class="btn-apply"
+			onclick={() => {
+				$isApplyOpen = true;
+				trackGtmEvent('contact_form_open', {
+					item_id: offer.id,
+					item_name: offer.jobType,
+					item_category: offer.location,
+					city: offer.city
+				});
+			}}>{m.detail_apply()}</button
+		>
 	</div>
 {/key}

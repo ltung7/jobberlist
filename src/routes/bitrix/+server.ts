@@ -6,7 +6,6 @@ import { PUBLIC_URL } from "$env/static/public"
 const saveBitrixLead = async ({ name, phone, offerId, utm_campaign, utm_content, utm_medium, utm_source, utm_term }: BitrixLeadData) => {
     const webhookUrl = `https://${env.BITRIX_DOMAIN}/rest/1/${env.BITRIX_TOKEN}/crm.lead.add.json`;
 
-    phone = '+48' + phone;
     await fetch(webhookUrl, {
         method: 'POST',
         headers: {
@@ -36,8 +35,6 @@ const saveBitrixLead = async ({ name, phone, offerId, utm_campaign, utm_content,
             }
         })
     })
-    .then(response => response.json())
-    .then(console.log)
 }
 
 export const POST: RequestHandler = async ({ request }) => {

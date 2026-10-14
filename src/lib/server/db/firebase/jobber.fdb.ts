@@ -1,6 +1,6 @@
 import { setItem, getItemById, getItems, addItem, db, getRef } from "./firebase";
 
-const collectionName: string = 'jobber/offers/list';
+const collectionName: string = 'jobOffers';
 
 export const getJobberOffersList = async <T = SavedOffer>(id: string): Promise<T | null> => {
     return getItemById(id, collectionName);
