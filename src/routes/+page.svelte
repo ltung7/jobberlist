@@ -3,8 +3,10 @@
 	import { onMount } from 'svelte';
 	import Catalog from '$lib/components/Catalog.svelte';
 	import Detail from '$lib/components/Detail.svelte';
+	import RecruiterDetail from '$lib/components/RecruiterDetail.svelte';
 	import Apply from '$lib/components/Apply.svelte';
 	import { view } from '$lib/nav/stores';
+	import { m } from '$lib/paraglide/messages.js';
 
 	let offers = $state<SavedOffer[]>([]);
 	let selectedOfferId = $state<string | null>(null);
@@ -17,6 +19,7 @@
 	};
 
 	let selectedOffer = $derived(offers.find((o) => o.id === selectedOfferId) ?? null);
+	let isRecruiterSelected = $derived(selectedOfferId === 'recruiter');
 
 	function selectOffer(id: string) {
 		selectedOfferId = id;
@@ -34,14 +37,16 @@
 	</section>
 
 	<section class="screen" id="detail">
-		{#if selectedOffer}
+		{#if isRecruiterSelected}
+			<RecruiterDetail onBack={() => ($view = 'catalog')} />
+		{:else if selectedOffer}
 			<Detail offer={selectedOffer} onBack={() => ($view = 'catalog')} />
 		{/if}
 	</section>
 </div>
 
 <Apply
-	offer={selectedOffer}
+	offer={isRecruiterSelected ? null : selectedOffer}
 	onSuccessClose={() => {
 		$view = 'catalog';
 	}}

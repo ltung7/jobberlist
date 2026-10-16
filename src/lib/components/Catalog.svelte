@@ -4,6 +4,7 @@
 	import { currentLocale } from '$lib/nav/stores';
 	import { trackGtmEvent } from '$lib/gtm';
 	import Rate from './Rate.svelte';
+	import DetailList from './DetailList.svelte';
 
 	interface Props {
 		offers: SavedOffer[];
@@ -152,6 +153,8 @@
 		<div class="count">{countText}</div>
 
 		<div class="list">
+			<DetailList caption="" onSelect={() => onSelectOffer('recruiter')} />
+
 			{#each filteredOffers as o (o.id)}
 				<button class="card" onclick={() => onSelectOffer(o.id)}>
 					<div class="card-top">
