@@ -31,15 +31,16 @@
 		history.pushState({ view: 'detail', selectedOfferId: id }, '');
 	}
 
-	function openApplyModal() {
-		$isApplyOpen = true;
-		history.pushState({ view: $view, selectedOfferId, applyOpen: true }, '');
-	}
-
-	function handleBackFromDetail() {
-		selectedOfferId = null;
-		$view = 'catalog';
-		history.back();
+	function handleBack() {
+		if ($isApplyOpen) {
+			$isApplyOpen = false;
+			return;
+		}
+		if (selectedOfferId !== null || isRecruiterSelected || $view === 'detail') {
+			selectedOfferId = null;
+			$view = 'catalog';
+			return;
+		}
 	}
 
 	onMount(() => {
@@ -52,16 +53,18 @@
 
 <svelte:window
 	onpopstate={(e) => {
+		const state = e.state;
 		if ($isApplyOpen) {
 			$isApplyOpen = false;
-			return;
-		}
-		if (selectedOfferId !== null || isRecruiterSelected || $view === 'detail') {
+		} else if (selectedOfferId !== null || isRecruiterSelected || $view === 'detail') {
 			selectedOfferId = null;
 			$view = 'catalog';
-			return;
 		}
-		// Nothing is on, browser back normally (no-op here since history already popped)
+
+		if (state && state.view === 'detail' && state.selectedOfferId) {
+			selectedOfferId = state.selectedOfferId;
+			$view = 'detail';
+		}
 	}}
 />
 
@@ -74,8 +77,7 @@
 		{#if isRecruiterSelected}
 			<RecruiterDetail
 				onBack={() => {
-					selectedOfferId = null;
-					$view = 'catalog';
+					handleBack();
 					history.back();
 				}}
 			/>
@@ -83,8 +85,7 @@
 			<Detail
 				offer={selectedOffer}
 				onBack={() => {
-					selectedOfferId = null;
-					$view = 'catalog';
+					handleBack();
 					history.back();
 				}}
 			/>
