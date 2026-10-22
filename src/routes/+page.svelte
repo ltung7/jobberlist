@@ -31,11 +31,17 @@
 		history.pushState({ view: 'detail', selectedOfferId: id }, '');
 	}
 
-	// Watch isApplyOpen changes to push/pop history state for apply modal
+	let previousApplyOpen = false;
 	$effect(() => {
-		if ($isApplyOpen) {
+		if ($isApplyOpen && !previousApplyOpen) {
 			history.pushState({ view: 'detail', selectedOfferId, applyOpen: true }, '');
+		} else if (!isApplyOpen && previousApplyOpen) {
+			// If closed programmatically or by clicking outside, go back in history to remove the state entry
+			if (history.state?.applyOpen) {
+				history.back();
+			}
 		}
+		previousApplyOpen = $isApplyOpen;
 	});
 
 	onMount(() => {
@@ -49,16 +55,20 @@
 <svelte:window
 	onpopstate={(e) => {
 		const state = e.state;
-		if ($isApplyOpen) {
+		if ($isApplyOpen && (!state || !state.applyOpen)) {
 			$isApplyOpen = false;
 			return;
 		}
 		if (state && state.view === 'detail') {
 			selectedOfferId = state.selectedOfferId;
 			$view = 'detail';
+			if (!state.applyOpen) {
+				$isApplyOpen = false;
+			}
 		} else {
 			selectedOfferId = null;
 			$view = 'catalog';
+			$isApplyOpen = false;
 		}
 	}}
 />
