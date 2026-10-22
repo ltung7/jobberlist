@@ -28,48 +28,48 @@
 	function selectOffer(id: string) {
 		selectedOfferId = id;
 		$view = 'detail';
-		history.pushState({ view: 'detail', selectedOfferId: id }, '');
+		history.pushState({ view: 'detail', selectedOfferId: id, applyOpen: false }, '');
 	}
 
-	let previousApplyOpen = false;
+	let isPopStateAction = false;
+
+	// When opening/closing apply modal via UI, use replaceState instead of pushState
+	// so opening and closing the apply modal doesn't stack history entries.
 	$effect(() => {
-		if ($isApplyOpen && !previousApplyOpen) {
-			history.pushState({ view: 'detail', selectedOfferId, applyOpen: true }, '');
-		} else if (!isApplyOpen && previousApplyOpen) {
-			// If closed programmatically or by clicking outside, go back in history to remove the state entry
-			if (history.state?.applyOpen) {
-				history.back();
-			}
+		if (isPopStateAction) return;
+
+		const currentState = history.state || {};
+		if ($isApplyOpen && !currentState.applyOpen) {
+			history.replaceState({ view: 'detail', selectedOfferId, applyOpen: true }, '');
+		} else if (!$isApplyOpen && currentState.applyOpen) {
+			history.replaceState({ view: 'detail', selectedOfferId, applyOpen: false }, '');
 		}
-		previousApplyOpen = $isApplyOpen;
 	});
 
 	onMount(() => {
 		loadOffers();
 		if (!history.state || history.state.view === undefined) {
-			history.replaceState({ view: 'catalog', selectedOfferId: null }, '');
+			history.replaceState({ view: 'catalog', selectedOfferId: null, applyOpen: false }, '');
 		}
 	});
 </script>
 
 <svelte:window
 	onpopstate={(e) => {
+		isPopStateAction = true;
 		const state = e.state;
-		if ($isApplyOpen && (!state || !state.applyOpen)) {
-			$isApplyOpen = false;
-			return;
-		}
 		if (state && state.view === 'detail') {
 			selectedOfferId = state.selectedOfferId;
 			$view = 'detail';
-			if (!state.applyOpen) {
-				$isApplyOpen = false;
-			}
+			$isApplyOpen = !!state.applyOpen;
 		} else {
 			selectedOfferId = null;
 			$view = 'catalog';
 			$isApplyOpen = false;
 		}
+		setTimeout(() => {
+			isPopStateAction = false;
+		}, 0);
 	}}
 />
 
@@ -84,6 +84,7 @@
 				onBack={() => {
 					selectedOfferId = null;
 					$view = 'catalog';
+					$isApplyOpen = false;
 					history.back();
 				}}
 			/>
@@ -93,6 +94,7 @@
 				onBack={() => {
 					selectedOfferId = null;
 					$view = 'catalog';
+					$isApplyOpen = false;
 					history.back();
 				}}
 			/>
