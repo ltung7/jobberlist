@@ -28,48 +28,28 @@
 	function selectOffer(id: string) {
 		selectedOfferId = id;
 		$view = 'detail';
-		history.pushState({ view: 'detail', selectedOfferId: id, applyOpen: false }, '');
+		history.pushState({ view: 'detail', selectedOfferId: id }, '');
 	}
-
-	let isPopStateAction = false;
-
-	// When opening/closing apply modal via UI, use replaceState instead of pushState
-	// so opening and closing the apply modal doesn't stack history entries.
-	$effect(() => {
-		if (isPopStateAction) return;
-
-		const currentState = history.state || {};
-		if ($isApplyOpen && !currentState.applyOpen) {
-			history.replaceState({ view: 'detail', selectedOfferId, applyOpen: true }, '');
-		} else if (!$isApplyOpen && currentState.applyOpen) {
-			history.replaceState({ view: 'detail', selectedOfferId, applyOpen: false }, '');
-		}
-	});
 
 	onMount(() => {
 		loadOffers();
 		if (!history.state || history.state.view === undefined) {
-			history.replaceState({ view: 'catalog', selectedOfferId: null, applyOpen: false }, '');
+			history.replaceState({ view: 'catalog', selectedOfferId: null }, '');
 		}
 	});
 </script>
 
 <svelte:window
 	onpopstate={(e) => {
-		isPopStateAction = true;
+		$isApplyOpen = false;
 		const state = e.state;
 		if (state && state.view === 'detail') {
 			selectedOfferId = state.selectedOfferId;
 			$view = 'detail';
-			$isApplyOpen = !!state.applyOpen;
 		} else {
 			selectedOfferId = null;
 			$view = 'catalog';
-			$isApplyOpen = false;
 		}
-		setTimeout(() => {
-			isPopStateAction = false;
-		}, 0);
 	}}
 />
 
@@ -82,9 +62,9 @@
 		{#if isRecruiterSelected}
 			<RecruiterDetail
 				onBack={() => {
+					$isApplyOpen = false;
 					selectedOfferId = null;
 					$view = 'catalog';
-					$isApplyOpen = false;
 					history.back();
 				}}
 			/>
@@ -92,9 +72,9 @@
 			<Detail
 				offer={selectedOffer}
 				onBack={() => {
+					$isApplyOpen = false;
 					selectedOfferId = null;
 					$view = 'catalog';
-					$isApplyOpen = false;
 					history.back();
 				}}
 			/>
