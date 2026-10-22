@@ -31,17 +31,12 @@
 		history.pushState({ view: 'detail', selectedOfferId: id }, '');
 	}
 
-	function handleBack() {
+	// Watch isApplyOpen changes to push/pop history state for apply modal
+	$effect(() => {
 		if ($isApplyOpen) {
-			$isApplyOpen = false;
-			return;
+			history.pushState({ view: 'detail', selectedOfferId, applyOpen: true }, '');
 		}
-		if (selectedOfferId !== null || isRecruiterSelected || $view === 'detail') {
-			selectedOfferId = null;
-			$view = 'catalog';
-			return;
-		}
-	}
+	});
 
 	onMount(() => {
 		loadOffers();
@@ -56,14 +51,14 @@
 		const state = e.state;
 		if ($isApplyOpen) {
 			$isApplyOpen = false;
-		} else if (selectedOfferId !== null || isRecruiterSelected || $view === 'detail') {
-			selectedOfferId = null;
-			$view = 'catalog';
+			return;
 		}
-
-		if (state && state.view === 'detail' && state.selectedOfferId) {
+		if (state && state.view === 'detail') {
 			selectedOfferId = state.selectedOfferId;
 			$view = 'detail';
+		} else {
+			selectedOfferId = null;
+			$view = 'catalog';
 		}
 	}}
 />
@@ -77,7 +72,8 @@
 		{#if isRecruiterSelected}
 			<RecruiterDetail
 				onBack={() => {
-					handleBack();
+					selectedOfferId = null;
+					$view = 'catalog';
 					history.back();
 				}}
 			/>
@@ -85,7 +81,8 @@
 			<Detail
 				offer={selectedOffer}
 				onBack={() => {
-					handleBack();
+					selectedOfferId = null;
+					$view = 'catalog';
 					history.back();
 				}}
 			/>
