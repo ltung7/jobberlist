@@ -1,5 +1,17 @@
-<script lang="ts">
+<script module lang="ts">
 	import { m } from '$lib/paraglide/messages.js';
+
+	export const RECRUITER_OFFER_ID = 'recruiter';
+
+	/** Minimal offer data for the recruiter program, reused by the apply sheet. */
+	export const getRecruiterOffer = (): ApplyOffer => ({
+		id: RECRUITER_OFFER_ID,
+		jobType: m.recruiter_program_title(),
+		location: 'Poland'
+	});
+</script>
+
+<script lang="ts">
 	import { currentLocale, isApplyOpen } from '$lib/nav/stores';
 	import { trackGtmEvent } from '$lib/gtm';
 	import ShareButton from './ShareButton.svelte';
@@ -12,11 +24,12 @@
 	let { onBack }: Props = $props();
 
 	$effect(() => {
+		const offer = getRecruiterOffer();
 		trackGtmEvent('view_item', {
-			item_id: 'recruiter',
-			item_name: m.recruiter_program_title(),
+			item_id: offer.id,
+			item_name: offer.jobType,
 			item_category: 'Hiring Program',
-			city: 'Poland'
+			city: offer.location
 		});
 	});
 </script>
@@ -29,11 +42,11 @@
 			</button>
 			<b style="margin-left: 5px;">{m.detail_back()}</b>
 		</div>
-		<ShareButton url={PUBLIC_URL + '/offers/recruiter'} onShare={(method: string) => {
+		<ShareButton url={PUBLIC_URL + '/offers/' + RECRUITER_OFFER_ID} onShare={(method: string) => {
 			trackGtmEvent('share', {
 				method: method,
 				content_type: 'offer',
-				item_id: 'recruiter'
+				item_id: RECRUITER_OFFER_ID
 			});
 		}} />
 	</div>
@@ -99,11 +112,12 @@
 			class="btn-apply"
 			onclick={() => {
 				$isApplyOpen = true;
+				const offer = getRecruiterOffer();
 				trackGtmEvent('contact_form_open', {
-					item_id: 'recruiter',
-					item_name: m.recruiter_program_title(),
+					item_id: offer.id,
+					item_name: offer.jobType,
 					item_category: 'Hiring Program',
-					city: 'Poland'
+					city: offer.location
 				});
 			}}>{m.detail_apply()}</button
 		>

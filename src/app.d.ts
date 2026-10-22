@@ -149,6 +149,18 @@ declare global {
 		rekruter: string;
 	}
 
+	/**
+	 * Minimal offer data required by the apply sheet.
+	 * Any superset (e.g. `SavedOffer`) is accepted.
+	 */
+	interface ApplyOffer {
+		id: string;
+		jobType: string;
+		location: string;
+		city?: string;
+		lang?: Partial<Record<Lang, TranslatableJobInfo>>;
+	}
+
 	interface BitrixLeadData {
 		phone: string;
 		name: string;

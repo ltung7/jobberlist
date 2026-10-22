@@ -3,6 +3,7 @@
 	import LocaleDropdown from '$lib/misc/LocaleDropdown.svelte';
 	import { isApplyOpen, view } from '$lib/nav/stores';
 	import Toasts from '$lib/toast/Toasts.svelte';
+	import logo from '$lib/assets/eisg_logo_standard.svg';
 
 	let { children } = $props();
 </script>
@@ -17,8 +18,7 @@
 	<!-- TOP BAR -->
 	<div class="topbar">
 		<div class="brand">
-			<span class="mark">EI</span>
-			<b>Praca<span>EISG</span></b>
+			<img src={logo} alt="Praca EISG" width="588" height="227" />
 		</div>
 		<LocaleDropdown />
 	</div>

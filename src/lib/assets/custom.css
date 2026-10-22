@@ -92,7 +92,7 @@ button {
 /* Topbar */
 .topbar {
 	flex: 0 0 auto;
-	padding: 22px 18px 12px;
+	padding: 16px 18px 12px;
 	background: var(--surface);
 	border-bottom: 1px solid var(--line);
 	display: flex;
@@ -102,31 +102,15 @@ button {
 	z-index: 20;
 }
 .brand {
+	margin-top: -10px;
+	flex: 0 0 auto;
 	display: flex;
 	align-items: center;
-	gap: 9px;
 }
-.brand .mark {
-	width: 30px;
-	height: 30px;
-	border-radius: 8px;
-	background: var(--petrol);
-	color: var(--petrol-ink);
-	display: grid;
-	place-items: center;
-	font-family: 'Archivo';
-	font-weight: 800;
-	font-size: 0.86rem;
-	letter-spacing: -0.02em;
-}
-.brand b {
-	font-family: 'Archivo';
-	font-weight: 800;
-	font-size: 1.02rem;
-	letter-spacing: -0.01em;
-}
-.brand span {
-	color: var(--amber);
+.brand img {
+	display: block;
+	height: 32px;
+	width: auto;
 }
 
 .lang {

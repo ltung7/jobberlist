@@ -6,7 +6,7 @@
 	import { countryCodes } from './const';
 
 	interface Props {
-		offer: SavedOffer | null;
+		offer: ApplyOffer;
 		onSuccessClose?: () => void;
 	}
 
@@ -41,15 +41,15 @@
 	async function handleSubmit() {
 		if (isValid) {
 			trackGtmEvent('generate_lead', {
-				offerId: offer?.id,
-				jobType: offer?.jobType,
-				location: offer?.location
+				offerId: offer.id,
+				jobType: offer.jobType,
+				location: offer.location
 			});
 			const urlParams = new URLSearchParams(window.location.search);
 			const data: BitrixLeadData = {
 				name: fName,
 				phone: fCountryCode + fPhone,
-				offerId: offer!.id,
+				offerId: offer.id,
 				utm_source: urlParams.get('utm_source') ?? '',
 				utm_medium: urlParams.get('utm_medium') ?? '',
 				utm_campaign: urlParams.get('utm_campaign') ?? '',
@@ -72,9 +72,7 @@
 		{#if !isSubmitted}
 			<div class="form-wrap">
 				<h2>{m.apply_title()}</h2>
-				{#if offer}
-					<p class="for">{m.apply_subtitle()} <b>{offer.lang[$currentLocale]?.jobType || offer.jobType} · {offer.location}, {offer.city}</b></p>
-				{/if}
+				<p class="for">{m.apply_subtitle()} <b>{offer.lang?.[$currentLocale]?.jobType || offer.jobType} · {offer.location}{offer.city ? ', ' + offer.city : ''}</b></p>
 
 				<div class="field">
 					<label for="fName">{m.apply_name()}</label>
@@ -85,7 +83,7 @@
 					<label for="fPhone">{m.apply_phone()}</label>
 					<div style="display: flex">
 						<select bind:value={fCountryCode} aria-label="Country code" style="width: 90px; margin-right: 10px;">
-							{#each countryCodes as code}
+							{#each countryCodes as code (code)}
 								<option value={code}>{code}</option>
 							{/each}
 						</select>
