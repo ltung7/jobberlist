@@ -3,6 +3,12 @@ import type { RequestHandler } from './$types';
 import { env } from "$env/dynamic/private"
 import { PUBLIC_URL } from "$env/static/public"
 
+/**
+ * Bitrix leads created via a webhook default to the webhook owner.
+ * `ASSIGNED_BY_ID` overrides that and points the lead at another user.
+ */
+const ASSIGNED_BY_ID = 14;
+
 const saveBitrixLead = async ({ name, phone, offerId, utm_campaign, utm_content, utm_medium, utm_source, utm_term }: BitrixLeadData) => {
     const webhookUrl = `https://${env.BITRIX_DOMAIN}/rest/1/${env.BITRIX_TOKEN}/crm.lead.add.json`;
 
@@ -13,6 +19,7 @@ const saveBitrixLead = async ({ name, phone, offerId, utm_campaign, utm_content,
         },
         body: JSON.stringify({
             "fields": {
+                "ASSIGNED_BY_ID": ASSIGNED_BY_ID,
                 "TITLE": `${name} | strona`,
                 "PHONE": [
                     {

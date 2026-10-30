@@ -4,6 +4,7 @@
 	import { trackGtmEvent } from '$lib/gtm';
 	import ShareButton from './ShareButton.svelte';
 	import { PUBLIC_URL } from '$env/static/public';
+	import { RECRUITER_BONUS, RECRUITER_PERIOD } from './RecruiterDetail.svelte';
 
 	interface Props {
 		onApplyClick?: () => void;
@@ -49,8 +50,8 @@
 			<p class="recruiter-intro">{@html m.recruiter_program_intro()}</p>
 
 			<div class="recruiter-section">
-				<h3>{m.recruiter_section_1_title()}</h3>
-				<p>{@html m.recruiter_section_1_text()}</p>
+				<h3>{m.recruiter_section_1_title({ bonus: RECRUITER_BONUS })}</h3>
+				<p>{@html m.recruiter_section_1_text({ bonus: RECRUITER_BONUS })}</p>
 			</div>
 
 			<div class="recruiter-section">
@@ -68,7 +69,7 @@
 				<ul class="recruiter-list">
 					<li>{@html m.recruiter_list_3_1()}</li>
 					<li>{@html m.recruiter_list_3_2()}</li>
-					<li>{@html m.recruiter_list_3_3()}</li>
+					<li>{@html m.recruiter_list_3_3({ bonus: RECRUITER_BONUS })}</li>
 					<li>{@html m.recruiter_list_3_4()}</li>
 				</ul>
 			</div>

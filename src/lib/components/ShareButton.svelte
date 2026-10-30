@@ -17,10 +17,11 @@
 			url: url || window.location.href
 		};
 		
-		canShare = navigator.share && navigator.canShare(shareData);
+		const nav = navigator as Navigator & { share?: unknown };
+		canShare = !!(nav.share);
 	});
 
-	function handleShare(e) {
+	function handleShare(e: MouseEvent) {
 		// 1. Guard against unsupported browsers/contexts
 		if (typeof navigator === 'undefined' || !navigator.share) {
 			console.warn('Web Share API is not supported in this environment.');

@@ -2,6 +2,10 @@
 	import { m } from '$lib/paraglide/messages.js';
 
 	export const RECRUITER_OFFER_ID = 'recruiter';
+	export const RECRUITER_BONUS_AMOUNT = 500;
+	export const RECRUITER_BONUS = `${RECRUITER_BONUS_AMOUNT} PLN`;
+	export const RECRUITER_PERIOD_DAYS = 30;
+	export const RECRUITER_PERIOD = `${RECRUITER_PERIOD_DAYS} days`;
 
 	/** Minimal offer data for the recruiter program, reused by the apply sheet. */
 	export const getRecruiterOffer = (): ApplyOffer => ({
@@ -63,11 +67,11 @@
 		<div class="facts">
 			<div class="fact hero">
 				<div class="k">{m.recruiter_fact_bonus()}</div>
-				<div class="v">{m.recruiter_fact_bonus_val()}</div>
+				<div class="v">{RECRUITER_BONUS}</div>
 			</div>
 			<div class="fact">
 				<div class="k">{m.recruiter_fact_period()}</div>
-				<div class="v">{m.recruiter_fact_period_val()}</div>
+				<div class="v">{RECRUITER_PERIOD}</div>
 			</div>
 			<div class="fact">
 				<div class="k">{m.recruiter_fact_limit()}</div>
@@ -76,8 +80,8 @@
 		</div>
 
 		<div class="sec">
-			<h4>{m.recruiter_section_1_title()}</h4>
-			<p>{@html m.recruiter_section_1_text()}</p>
+			<h4>{m.recruiter_section_1_title({ bonus: RECRUITER_BONUS })}</h4>
+			<p>{@html m.recruiter_section_1_text({ bonus: RECRUITER_BONUS })}</p>
 		</div>
 
 		<div class="sec">
@@ -95,7 +99,7 @@
 			<ul class="ul check">
 				<li>{@html m.recruiter_list_3_1()}</li>
 				<li>{@html m.recruiter_list_3_2()}</li>
-				<li>{@html m.recruiter_list_3_3()}</li>
+				<li>{@html m.recruiter_list_3_3({ bonus: RECRUITER_BONUS })}</li>
 				<li>{@html m.recruiter_list_3_4()}</li>
 			</ul>
 		</div>
